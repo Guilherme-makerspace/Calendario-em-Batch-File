@@ -23,3 +23,45 @@ if not exist "%2" (
     mkdir "%2"
 )
 cd "%2"
+```
+
+---
+
+## Objetivo
+
+
+Este bloco verifica se as pastas especificadas pelos parâmetros `%1` (primeiro diretório) e `%2` (segundo diretório) existem. Se não existirem, elas são criadas. O comando `cd` (change directory) move o script para dentro dessas pastas. Essas pastas vão ser usadas para armazenar os diretórios dos dias do mês.
+
+### 2. Definição de Variáveis
+Aqui, o script atribui os valores dos parâmetros fornecidos ao script para as variáveis mes (mês) e ano.
+
+```batch
+set mes=%3
+set ano=%4
+```
+### 3. Cálculo do Ano Bissexto
+
+```batch
+set /a resto1=%ano% %% 4
+set /a resto2=%ano% %% 100
+set /a resto3=%ano% %% 400
+set /a bissexto=0
+
+:: Verifica se o ano é bissexto
+if %resto1%==0 (
+    if %resto2%==0 (
+        if %resto3%==0 (
+            set bissexto=1
+        ) else (
+            set bissexto=0
+        )
+    ) else (
+        set bissexto=1
+    )
+)
+```
+- Este bloco calcula se o ano fornecido é bissexto ou não.
+- O ano é bissexto se for divisível por 4, mas não por 100, ou se for divisível por 400.
+- As variáveis resto1, resto2 e resto3 armazenam os restos das divisões do ano por 4, 100 e 400, respectivamente.
+- A variável bissexto recebe o valor 1 (verdadeiro) se o ano for bissexto e 0 (falso) caso contrário.
+---
